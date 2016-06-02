@@ -14,10 +14,12 @@
       vm.showSearchBar = false;
       vm.showFilters = false;
 
-      classifiedsFactory.getClassifieds().then(function(data) {
+      vm.classifieds = classifiedsFactory.ref;
+
+     /* classifiedsFactory.getClassifieds().then(function(data) {
         vm.classifieds = data.data;
         vm.categories = getCategories(vm.classifieds);
-      });
+      });*/
 
       $scope.$on('newClassified', function(event, data) {
         data.id = vm.classifieds.length + 1;
@@ -80,6 +82,8 @@
 
         return _.uniq(categories);
       }
+
+
 
     });
 
