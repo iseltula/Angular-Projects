@@ -16,12 +16,11 @@
 
       vm.classifieds = classifiedsFactory.ref;
       vm.classifieds.$loaded().then(function(classifieds){
-          vm.categories = getCategories(classifieds);
+      vm.categories = getCategories(classifieds);
       })
 
-      $scope.$on('newClassified', function(event, data) {
-        data.id = vm.classifieds.length + 1;
-        vm.classifieds.push(data);
+      $scope.$on('newClassified', function(event, classified) {
+       vm.classifieds.$add(classified);
         showToast('Classified Saved');
       });
 
@@ -49,7 +48,7 @@
         vm.editing = true;
         vm.sidebarTitle = 'Edit Classified';
         vm.classified = classified;
-        $state.go('classifieds.edit', { id: classified.id, classified: classified });
+        $state.go('classifieds.edit', { id: classified.$id});
       }
 
       function deleteClassified(event, classified) {

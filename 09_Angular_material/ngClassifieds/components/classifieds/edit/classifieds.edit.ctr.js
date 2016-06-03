@@ -8,12 +8,12 @@
 
       var vm = this;
 
+      vm.classifieds = classifiedsFactory.ref;
+      vm.classified = vm.classifieds.$getRecord($state.params.id);
       vm.closeSidebar = closeSidebar;
       vm.saveEdit = saveEdit;
 
       vm.sidebarTitle = 'Edit Classifed';
-
-      vm.classified = $state.params.classified;
 
       $timeout(function() {
         $mdSidenav('left').open();
@@ -29,19 +29,17 @@
         }
       });
 
-
       function closeSidebar() {
         vm.classified = {};
         $scope.sidenavOpen = false;
       }
 
       function saveEdit() {
-        // Need to clear the form after, or else it will be populated when we go to add new classifieds
-        $scope.sidenavOpen = false;
-        // showToast('Edit Saved');
-        $scope.$emit('editSaved', 'Edit Saved');
+        vm.classifieds.$save(vm.classified).then(function() {
+          $scope.sidenavOpen = false;
+          $scope.$emit('editSaved', 'Edit Saved');
+        });
       }
-
 
     });
 
