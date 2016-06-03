@@ -58,9 +58,7 @@
             .ok('Yes')
             .cancel('No');
         $mdDialog.show(confirm).then(function() {
-          console.log(event);
-          var index = vm.classifieds.indexOf(classified);
-          vm.classifieds.splice(index, 1);
+          vm.classifieds.$remove(classified);
           showToast('Classified Deleted');
         }, function() {
           vm.status = classified.title + ' is still here.';
